@@ -1,0 +1,46 @@
+@startuml
+actor Utente
+participant main
+entity cdatiCondivisi
+
+Utente -> main ++ : start
+
+main -> cdatiCondivisi ** : new
+
+main -> ThCorsa_1 ** : new
+main -> ThCorsa_2 ** : new
+main -> ThCorsa_3 ** : new
+main -> ThCorsa_4 ** : new
+main -> ThCorsa_5 ** : new
+main -> ThVisualizza ** : new
+
+main -> ThVisualizza ++ : start
+main -> ThCorsa_1 ++ : start
+main -> ThCorsa_2 ++ : start
+main -> ThCorsa_3 ++ : start
+main -> ThCorsa_4 ++ : start
+main -> ThCorsa_5 ++ : start
+
+main -> cdatiCondivisi : cdatiCondivisi.waitFinito()
+
+deactivate ThCorsa_1
+ThCorsa_2 -> main : return
+deactivate ThCorsa_2
+ThCorsa_3 -> main : return
+deactivate ThCorsa_3
+ThCorsa_4 -> main : return
+deactivate ThCorsa_4
+ThCorsa_5 -> main : return
+deactivate ThCorsa_5
+ThVisualizza -> main : return
+deactivate ThVisualizza
+
+main -> cdatiCondivisi : cdatiCondivisi.waitSem1()
+main -> cdatiCondivisi : cdatiCondivisi.waitSem2();
+main -> cdatiCondivisi : cdatiCondivisi.waitSem3();
+main -> cdatiCondivisi : cdatiCondivisi.waitSem4();
+main -> cdatiCondivisi : cdatiCondivisi.waitSem5();
+
+main -> cdatiCondivisi : cdatiCondivisi.getVincitore()
+main -> Utente : messaggio vincitore
+@enduml
